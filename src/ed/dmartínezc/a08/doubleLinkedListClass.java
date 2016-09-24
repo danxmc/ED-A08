@@ -22,7 +22,7 @@ public class doubleLinkedListClass<T> {
     }
 
     /**
-     * Inserta un nodo al inicio de la list
+     * Inserta un nodo al inicio de la lista
      *
      * @param data generic type, contiene informacion que se desea guardar
      */
@@ -38,6 +38,10 @@ public class doubleLinkedListClass<T> {
         }
     }
 
+    /**
+     * Inserta un nodo en el ultimo espacio de la lista
+     * @param data, informacion que contiene el nodo
+     */
     public void insertLast(T data) {
         nodeClass node = new nodeClass(data);
         if (isEmpty()) {
@@ -50,13 +54,21 @@ public class doubleLinkedListClass<T> {
         }
     }
 
+    /**
+     * 
+     * @return dato booleano para saber si la lista esta vacia
+     */
     private boolean isEmpty() {
         return (first == null && last == null);
     }
 
+    /**
+     * 
+     * @param data el dato que se requiere encontrar
+     * @return nodeClass pointer donde se encuentra el dato, o si no se encuentra devuelve null
+     */
     private nodeClass searchNode(T data) {
         nodeClass aux;
-        System.out.print("El nodo con la informacion '" + data + "' fue borrado: ");
         if (isEmpty()) {
             return null; //Si esta vacio regresa vacio
         } else { //Si contiene elementos
@@ -68,7 +80,7 @@ public class doubleLinkedListClass<T> {
                     return null;
                 }
             }
-            if (aux.data == data) { //Se retorna el apuntador si lo que contiene es igual
+            if (aux.data == data) { //Se retorna el apuntador si lo que contiene es igual al dato buscado
                 return aux;
             } else {//Se retorna nulo si no es lo mismo
                 return null;
@@ -76,36 +88,51 @@ public class doubleLinkedListClass<T> {
         }
     }
 
+    /**
+     * 
+     * @param data el dato que se desea borrar
+     * @return boolean, para saber si el nodo con data fue borrado o no
+     */
     public boolean eNode(T data) {
-        nodeClass aux = searchNode(data);
-        if (aux == null) {
+        nodeClass aux = searchNode(data);//Llama al method searchNode, para saber el pointer donde esta data
+        if (aux == null) {//si es null, devuelve falso
             System.out.println("No se encontro el nodo");
             return false;
-        } else if (aux == first) {
+        } else if (aux == first) {//Si el pointer es al principio, manda llamar al method eFirst
             eNodeFirst();
-        } else if (aux == last) {
+        } else if (aux == last) {//Si el pointer es al final, manda llamar al method eLast
             eNodeLast();
-        } else {
-            aux.next.prev = aux.prev;
-            aux.prev.next = aux.next;
+        } else {//Si el pointer es enmedio
+            aux.next.prev = aux.prev;//Se cambia el apuntador del nodo anterior para que apunte a uno despues del nodo actual
+            aux.prev.next = aux.next;//Se cambia el apuntar del nodo siguiente para que apunte a uno antes del actual
         }
         return true;
     }
 
+    /**
+     * Ignora el primer nodo de la lista
+     */
     public void eNodeFirst() { //Corremos el primero un espacio adelante
         first = first.next;
         first.prev = null;
     }
 
+    /**
+     * Ignora el ultimo nodo de la lista
+     * 
+     */
     public void eNodeLast() { //Corremos el ultimo un espacio atras
         last = last.prev;
         last.next = null;
     }
 
+    /**
+     * Imprime la lista
+     */
     public void showList() {
-        if (isEmpty()) {
+        if (isEmpty()) {//Si la lista esta vacia, imprime emoticon
             System.out.println("☠");
-        } else {
+        } else {//Recorre los nodos, des de first hasta fin, y los imprime
             nodeClass aux = first;
             while (aux != null) {
                 System.out.print("[" + aux.data + "] ");
@@ -115,10 +142,13 @@ public class doubleLinkedListClass<T> {
         }
     }
     
+    /**
+     * Imprime la lista en un orden revertido
+     */
     public void showListReverted() {
-        if (isEmpty()) {
+        if (isEmpty()) {//Si la lista esta vacia, imprime emoticon
             System.out.println("☠");
-        } else {
+        } else {//Recorre los nodos de last a first, y los imprime
             nodeClass aux = last;
             while (aux != null) {
                 System.out.print("[" + aux.data +"] ");
