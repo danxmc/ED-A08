@@ -28,6 +28,8 @@ public class EDDMartínezCA08 {
         Lista.eNodeLast();
         Lista.showList();
         Lista.showListReverted();
+        Lista.eNode('A');
+        Lista.showList();
     }
     
 }
